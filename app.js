@@ -211,8 +211,8 @@ function initMap() {
   const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 20, maxNativeZoom: 19, attribution: '© Esri' });
   const google = L.tileLayer('https://mt{s}.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', { subdomains: '0123', maxZoom: 20, attribution: '© Google' });
   const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' });
-  satellite.addTo(state.map);
-  L.control.layers({ 'Ảnh vệ tinh (Esri)': satellite, 'Ảnh vệ tinh + nhãn (Google)': google, 'OpenStreetMap': osm }, {}, { position: 'topleft' }).addTo(state.map);
+  google.addTo(state.map);
+  L.control.layers({ 'Ảnh vệ tinh + nhãn (Google)': google, 'Ảnh vệ tinh (Esri)': satellite, 'OpenStreetMap': osm }, {}, { position: 'topleft' }).addTo(state.map);
   L.control.scale({ imperial: false, position: 'bottomleft' }).addTo(state.map);
 
   state.layer = L.geoJSON(state.features, {
@@ -220,7 +220,7 @@ function initMap() {
     onEachFeature: (f, layer) => {
       state.layerById[f.properties.id] = layer;
       layer.on('click', () => selectThua(f.properties.id));
-      layer.bindTooltip(`${f.properties.tbd}/${f.properties.thua}`, { permanent: true, direction: 'center', className: 'thua-label', interactive: false });
+      layer.bindTooltip(`${f.properties.loai} - ${f.properties.tbd}/${f.properties.thua}`, { permanent: true, direction: 'center', className: 'thua-label', interactive: false });
     },
   }).addTo(state.map);
 
@@ -393,31 +393,23 @@ function showContactInRightbar() {
   document.getElementById('thua-detail').innerHTML = `
     <div class="contact-card">
       <div class="contact-header">
-        <img src="logo.jpg" alt="Thanh Hà" class="contact-logo">
         <div class="contact-header-text">
-          <div class="contact-tag">Đơn vị xây dựng WebGIS</div>
-          <h3 class="contact-name">CÔNG TY CỔ PHẦN TƯ VẤN ỨNG DỤNG VÀ PHÁT TRIỂN CÔNG NGHỆ THANH HÀ</h3>
+          <div class="contact-tag">Đơn vị xây dựng</div>
+          <h3 class="contact-name">CÔNG TY CỔ PHẦN CÔNG NGHỆ TÀI NGUYÊN - MÔI TRƯỜNG HÀ NỘI</h3>
         </div>
       </div>
-      <p class="contact-slogan">Tư vấn chuyên sâu về Quản lý, sử dụng đất đai – Điều tra cơ bản đất đai – Thống kê, kiểm kê đất đai – Quy hoạch đất đai – WebGIS – Chuyển đổi số trong quản lý đất đai.</p>
       <div class="contact-services">
         <span class="contact-chip">📍 Lập phương án SDĐ</span>
         <span class="contact-chip">🗺️ WebGIS</span>
-        <span class="contact-chip">⚖️ Pháp lý đất đai</span>
-        <span class="contact-chip">📋 Hồ sơ thủ tục</span>
       </div>
       <div class="contact-info">
         <div class="contact-info-row"><span class="contact-icon">🏛️</span><div><div class="contact-label">Cơ quan tổ chức lập phương án</div><div class="contact-value">Phòng Xây dựng, Nông nghiệp và Môi trường — UBND xã Đại Phúc, tỉnh Thái Nguyên</div></div></div>
-        <div class="contact-info-row"><span class="contact-icon">🏢</span><div><div class="contact-label">Trụ sở Thanh Hà</div><div class="contact-value">Số 267, Tằng My, xã Phúc Thịnh, TP Hà Nội</div></div></div>
-        <div class="contact-info-row"><span class="contact-icon">🏬</span><div><div class="contact-label">Chi nhánh văn phòng</div><div class="contact-value">HH2D Xuân Mai Complex, P. Yên Nghĩa, TP Hà Nội</div></div></div>
-        <div class="contact-info-row"><span class="contact-icon">✉️</span><div><div class="contact-label">Email</div><div class="contact-value"><a href="mailto:thanhha.dacjsc@gmail.com">thanhha.dacjsc@gmail.com</a></div></div></div>
-        <div class="contact-info-row"><span class="contact-icon">📞</span><div><div class="contact-label">Điện thoại</div><div class="contact-value"><a href="tel:0911558628"><strong>0911 558 628</strong></a><div class="contact-person">Ông Phạm Văn Tuấn</div></div></div></div>
+        <div class="contact-info-row"><span class="contact-icon">📞</span><div><div class="contact-label">Điện thoại đơn vị xây dựng</div><div class="contact-value"><a href="tel:0352937823"><strong>035.293 7823</strong></a></div></div></div>
       </div>
       <div class="contact-actions">
-        <a href="tel:0911558628" class="btn btn-primary contact-btn-call">📞 Gọi</a>
-        <a href="mailto:thanhha.dacjsc@gmail.com?subject=Liên hệ từ WebGIS Đại Phúc" class="btn contact-btn-email">✉️ Email</a>
+        <a href="tel:0352937823" class="btn btn-primary contact-btn-call">📞 Gọi 035.293 7823</a>
       </div>
-      <p class="contact-note">Quý cơ quan, đơn vị có nhu cầu tư vấn lập phương án sử dụng đất, rà soát đất có nguồn gốc nông, lâm trường, xây dựng WebGIS hoặc số hóa hồ sơ địa chính... vui lòng liên hệ trực tiếp để được hỗ trợ.</p>
+      <p class="contact-note">Mọi ý kiến góp ý về số liệu, ranh giới thửa đất trong phương án xin liên hệ cơ quan tổ chức lập hoặc đơn vị xây dựng theo thông tin trên.</p>
     </div>`;
 }
 

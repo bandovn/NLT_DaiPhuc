@@ -3,13 +3,15 @@
 Phương án sử dụng đất thu hồi từ Công ty Lâm nghiệp Thái Nguyên.
 UBND xã Đại Phúc, tỉnh Thái Nguyên — Cơ quan tổ chức lập: **Phòng Xây dựng, Nông nghiệp và Môi trường**.
 
+Đơn vị xây dựng: Công ty Cổ phần Công nghệ Tài nguyên - Môi trường Hà Nội — ĐT 035.293 7823.
+
 Ứng dụng tĩnh (HTML + Leaflet), chạy trên GitHub Pages, không cần máy chủ.
 
 ## Cấu trúc
 ```
 index.html            Giao diện (Bản đồ, Tra cứu, Thống kê, Biểu rà soát, Hướng dẫn, Liên hệ)
 app.js                Logic bản đồ, lọc, thống kê, rà soát, xuất Excel/CSV/JSON
-style.css, logo.jpg   Giao diện, logo đơn vị xây dựng
+style.css             Giao diện
 data/diachinh.geojson 528 thửa đã chuyển VN-2000 (KTT 106°30') → WGS-84
 tools/convert_vn2000.py  Script chuyển đổi khi cập nhật dữ liệu từ QGIS
 ```
